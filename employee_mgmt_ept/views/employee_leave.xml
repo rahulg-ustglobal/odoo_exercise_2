@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1)Tree View-->
+    <record id="view_employee_leave_tree" model="ir.ui.view">
+        <field name="name">employee.leave.ept.tree</field>
+        <field name="model">employee.leave.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="status"/>
+                <field name="leave_description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--2)Form View-->
+    <record id="view_employee_leave_form" model="ir.ui.view">
+        <field name="name">employee.leave.ept.form</field>
+        <field name="model">employee.leave.ept</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <!--  Status  -->
+                <header>
+                    <field name="status" widget="statusbar" options="{'clickable' : '1'}"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <notebook>
+                            <page string="Leave Description">
+                                <field name="leave_description"/>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--3)Search View-->
+    <record id="view_employee_leave_search" model="ir.ui.view">
+        <field name="name">employee.leave.ept.search</field>
+        <field name="model">employee.leave.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id"/>
+            </search>
+        </field>
+    </record>
+
+    <!--4)Actions-->
+    <record id="action_employee_leave" model="ir.actions.act_window">
+        <field name="name">Employee Leave</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.leave.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p>Employees Leave Tab</p>
+        </field>
+    </record>
+
+    <!--5)Menue-->
+
+    <menuitem id="menu_employee_leave"
+              name="Leaves"
+              parent="menu_employee_department2"
+              action="action_employee_leave"
+              sequence="1"/>
+</odoo>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1)Tree View-->
+    <record id="view_employee_department_shift_tree" model="ir.ui.view">
+        <field name="name">employee.department.shift.ept.tree</field>
+        <field name="model">employee.department.shift.ept</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="shift"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--3)Search View-->
+    <record id="view_employee_department_shift_search" model="ir.ui.view">
+        <field name="name">employee.department.shift.ept.search</field>
+        <field name="model">employee.department.shift.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="shift"/>
+            </search>
+        </field>
+    </record>
+
+    <!--4)Actions-->
+    <record id="action_employee_department_shift" model="ir.actions.act_window">
+        <field name="name">Employee Shift</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.department.shift.ept</field>
+        <field name="view_mode">tree,search</field>
+        <field name="help" type="html">
+            <p>Create data about the employees shift</p>
+        </field>
+    </record>
+
+    <!--5)Menue-->
+
+     <menuitem id="menu_employee_department_shift1"
+              name="Employee shift"
+              parent="menu_employee_department2"
+              action="action_employee_department_shift"
+              sequence="1"/>
+
+
+</odoo>

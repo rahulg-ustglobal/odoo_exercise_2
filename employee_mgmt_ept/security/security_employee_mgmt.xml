@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    Category-->
+    <record model="ir.module.category" id="category_employee_mgmt_ept">
+        <field name="name">HR</field>
+        <field name="description">User access level for this module</field>
+        <field name="sequence">3</field>
+    </record>
+
+    <!--    Groups-->
+    <record id="group_employee_mgmt_ept_employee" model="res.groups">
+        <field name="name">Employee</field>
+        <field name="category_id" ref="category_employee_mgmt_ept"/>
+    </record>
+
+    <record id="group_employee_mgmt_ept_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="category_employee_mgmt_ept"/>
+        <field name="implied_ids" eval="[(4, ref('group_employee_mgmt_ept_employee'))]"/>
+    </record>
+
+    <record id="group_employee_mgmt_ept_department_manager" model="res.groups">
+        <field name="name">Department Manager</field>
+        <field name="category_id" ref="category_employee_mgmt_ept"/>
+        <field name="implied_ids" eval="[(4, ref('group_employee_mgmt_ept_manager'))]"/>
+        <field name="users" eval="[(4,ref('base.user_admin'))]"/>
+    </record>
+
+    <!--    Record Rule-->
+    <record id="employee_mgmt_manager" model="ir.rule">
+        <field name="name">Employee wise created data !</field>
+        <field name="model_id" ref="employee_mgmt_ept.model_employee_leave_ept"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+
+        <field name="domain_force">['|', '|',('employee_id.related_user_id.id','=', user.id),
+            ('employee_id.manager_id.related_user_id.id', '=', user.id),
+            ('employee_id.department_name_id.department_manager_id.id', '=', user.id)]
+        </field>
+    </record>
+</odoo>
+

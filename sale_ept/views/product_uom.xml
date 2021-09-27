@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1)Tree View-->
+    <record id="view_product_uom_tree" model="ir.ui.view">
+        <field name="name">product.uom.ept.tree</field>
+        <field name="model">product.uom.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="uom_category_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--2)Form View-->
+    <record id="view_product_uom_form" model="ir.ui.view">
+        <field name="name">product.uom.ept.form</field>
+        <field name="model">product.uom.ept</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="uom_category_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--3)Search View-->
+    <record id="view_product_uom_search" model="ir.ui.view">
+        <field name="name">product.uom.ept.search</field>
+        <field name="model">product.uom.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+
+    <!--4)Actions-->
+    <record id="action_product_uom" model="ir.actions.act_window">
+        <field name="name">Product Uom</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.uom.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p>Create data about the Product Uom</p>
+        </field>
+    </record>
+
+    <!--5)Menue-->
+    <menuitem id="menu_product_uom"
+              name="Product Uom"
+              parent="menu_product_category2"
+              action="action_product_uom"
+              sequence="1"/>
+</odoo>

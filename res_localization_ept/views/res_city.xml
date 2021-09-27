@@ -1,0 +1,46 @@
+<odoo>
+    <!-- 1)Tree View -->
+    <record id="view_res_city_tree" model="ir.ui.view">
+        <field name="name">res.city.ept.tree</field>
+        <field name="model">res.city.ept</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 3)Search View -->
+    <record id="view_res_city_search" model="ir.ui.view">
+        <field name="name">res.city.ept.search</field>
+        <field name="model">res.city.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="state_id"/>
+                <!-- Group By  -->
+                <group expand="0" string="Group By">
+                    <filter string="state_id" name="state_id" context="{'group_by':'state_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- 4)Actions -->
+    <record id="action_res_city" model="ir.actions.act_window">
+        <field name="name">City</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.city.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p>Create data about the city</p>
+        </field>
+    </record>
+
+    <!-- 5)Menue -->
+    <menuitem id="menu_res_city1"
+              name="City"
+              parent="menu_res_country2"
+              action="action_res_city"
+              sequence="3"/>
+</odoo>

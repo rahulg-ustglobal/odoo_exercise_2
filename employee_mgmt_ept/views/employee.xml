@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1)Tree View-->
+    <record id="view_employee_tree" model="ir.ui.view">
+        <field name="name">employee.ept.tree</field>
+        <field name="model">employee.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="department_name_id"/>
+                <field name="job_position"/>
+                <field name="hire_date"/>
+                <field name="gender"/>
+                <field name="is_manager"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--2)Form View-->
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">employee.ept.form</field>
+        <field name="model">employee.ept</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="department_name_id"/>
+                            <field name="shift_id"/>
+                            <field name="job_position"/>
+                            <field name="salary"/>
+                            <field name="hire_date"/>
+                        </group>
+                        <group>
+                            <field name="gender"/>
+                            <field name="job_type" widget="radio"/>
+                            <field name="is_manager"/>
+                            <field name="manager_id"/>
+                            <field name="related_user_id"/>
+                        </group>
+                    </group>
+                     <group>
+                        <notebook>
+                            <page string="employee_ids">
+                                <field name="employee_ids"/>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--3)Search View-->
+    <record id="view_employee_search" model="ir.ui.view">
+        <field name="name">employee.ept.search</field>
+        <field name="model">employee.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="job_position"/>
+                <field name="department_name_id"/>
+            </search>
+        </field>
+    </record>
+
+    <!--4)Actions-->
+    <record id="action_employee" model="ir.actions.act_window">
+        <field name="name">Employee</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p>Create data about the employees</p>
+        </field>
+    </record>
+
+    <!--5)Menue-->
+    <menuitem id="menu_employee"
+              name="Employees"
+              parent="menu_employee_department2"
+              action="action_employee"
+              sequence="1"/>
+</odoo>

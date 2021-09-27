@@ -1,0 +1,69 @@
+<odoo>
+    <!-- 1)Tree View -->
+    <record id="view_res_state_tree" model="ir.ui.view">
+        <field name="name">res.state.ept.tree</field>
+        <field name="model">res.state.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="state_code"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 2)Form View -->
+    <record id="view_res_state_form" model="ir.ui.view">
+        <field name="name">res.state.ept.form</field>
+        <field name="model">res.state.ept</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="state_code"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Cities">
+                            <field name="city_ids">
+                                <tree editable="top">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 3)Search View -->
+    <record id="view_res_state_search" model="ir.ui.view">
+        <field name="name">res.state.ept.search</field>
+        <field name="model">res.state.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="state_code"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- 4)Actions -->
+    <record id="action_res_state" model="ir.actions.act_window">
+        <field name="name">State</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.state.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p>Create data about the state</p>
+        </field>
+    </record>
+
+    <!-- 5)Menue -->
+<menuitem id="menu_res_states1"
+          name="State"
+          parent="menu_res_country2"
+          action="action_res_state"
+          sequence="2"/>
+</odoo>

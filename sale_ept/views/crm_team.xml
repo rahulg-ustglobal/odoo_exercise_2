@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1)Tree View-->
+    <record id="view_crm_team_tree" model="ir.ui.view">
+        <field name="name">crm.team.ept.tree</field>
+        <field name="model">crm.team.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="team_leader"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--2)Form View-->
+    <record id="view_crm_team_form" model="ir.ui.view">
+        <field name="name">crm.team.ept.form</field>
+        <field name="model">crm.team.ept</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="team_leader"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--3)Search View-->
+    <record id="view_crm_team_search" model="ir.ui.view">
+        <field name="name">crm.team.ept.search</field>
+        <field name="model">crm.team.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="team_leader"/>
+            </search>
+        </field>
+    </record>
+
+    <!--4)Actions-->
+    <record id="action_crm_team" model="ir.actions.act_window">
+        <field name="name">CRM Team</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crm.team.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p>Create data about the Sales/Products</p>
+        </field>
+    </record>
+
+    <!--5)Menue-->
+
+    <menuitem id="menu_crm_team1"
+              name="CRM"
+              parent="menu_product_category1"
+              sequence="1"/>
+
+    <menuitem id="menu_crm_team2"
+              name="Sales Team"
+              parent="menu_crm_team1"
+              action="action_crm_team"
+              sequence="1"/>
+</odoo>

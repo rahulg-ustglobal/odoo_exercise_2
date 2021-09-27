@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--Kanban View-->
+    <record id="view_res_partner_ept_kanban" model="ir.ui.view">
+        <field name="name">res.partner.ept.form</field>
+        <field name="model">res.partner.ept</field>
+        <field name="arch" type="xml">
+            <kanban class="o_res_partner_kanban" sample="1">
+                <field name="name"/>
+                <field name="street_1"/>
+                <field name="street_2"/>
+                <field name="country_id"/>
+                <field name="state_id"/>
+                <field name="city_id"/>
+                <field name="zip_code"/>
+                <field name="email"/>
+                <field name="mobile"/>
+                <field name="phone"/>
+                <field name="photo"/>
+                <field name="website"/>
+                <field name="active"/>
+                <field name="parent_id"/>
+                <field name="child_ids"/>
+                <field name="address_type"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                            <div class="o_kanban_image">
+                                <field name="photo" widget="image" class="oe_avtar"/>
+                            </div>
+                            <div class="oe_kanban_details d-flex flex-column">
+                                <strong class="o_kanban_record_title oe_partner_heading">
+                                    <field name="name"/>
+                                </strong>
+                                <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
+                                <ul>
+                                    <li>
+                                        <field name="parent_id"/>
+                                    </li>
+                                    <li>
+                                        <t>
+                                            <field name="city_id"/>
+                                            <t>,</t>
+                                        </t>
+                                        <t>
+                                            <field name="country_id"/>
+                                        </t>
+                                    </li>
+                                    <li class="o_text_overflow">
+                                        <field name="email"/>
+                                    </li>
+                                </ul>
+                                <div class="o_row">
+                                    <span class="oe_kanban_partner_links"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!--1)Tree View-->
+    <record id="view_res_partner_tree" model="ir.ui.view">
+        <field name="name">res.partner.ept.tree</field>
+        <field name="model">res.partner.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="city_id"/>
+                <field name="zip_code"/>
+                <field name="email"/>
+                <field name="mobile"/>
+                <field name="website"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--2)Form View-->
+    <record id="view_res_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.ept.form</field>
+        <field name="model">res.partner.ept</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="photo" string="" widget="image" class="oe_right oe_avatar"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="street_1"/>
+                            <field name="street_2"/>
+                            <field name="country_id"/>
+                            <field name="state_id"/>
+                            <field name="city_id"/>
+                            <field name="zip_code"/>
+                        </group>
+                        <group>
+                            <field name="email"/>
+                            <field name="mobile"/>
+                            <field name="phone"/>
+                            <field name="website"/>
+                            <field name="active"/>
+                            <field name="parent_id"/>
+                            <field name="address_type"/>
+                        </group>
+                    </group>
+                    <group>
+                        <notebook>
+                            <page name="child_ids" string="Web Description">
+                                <field name="child_ids"/>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--4)Search View-->
+    <record id="view_res_partner_search" model="ir.ui.view">
+        <field name="name">res.partner.ept.search</field>
+        <field name="model">res.partner.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="country_id"/>
+                <field name="state_id"/>
+                <field name="email"/>
+
+                <!--Filter -->
+                <filter string="Parent" name="parent_id"
+                        domain="[('parent_id','=', None)]"/>
+
+                <!--Group By -->
+                <group string="Group By">
+                    <filter string="Country" name="country_id" context="{'group_by':'country_id'}"/>
+                    <filter string="State" name="state_id" context="{'group_by':'state_id'}"/>
+                    <filter string="City" name="city_id" context="{'group_by':'city_id'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <!--5)Actions-->
+    <record id="action_res_partner" model="ir.actions.act_window">
+        <field name="name">Customer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.ept</field>
+        <field name="context">{'search_default_parent_id': 1}</field>
+        <field name="view_mode">kanban,tree,form,search</field>
+        <field name="help" type="html">
+            <p>Create data about the Res Partner</p>
+        </field>
+    </record>
+
+    <!--6)Menue-->
+    <menuitem id="menu_res_partner"
+              name="Customer"
+              parent="menu_product_category2"
+              action="action_res_partner"
+              sequence="1"/>
+</odoo>

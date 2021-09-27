@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1)Tree View-->
+    <record id="view_crm_lead_tree" model="ir.ui.view">
+        <field name="name">crm.lead.ept.tree</field>
+        <field name="model">crm.lead.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="team_leader"/>
+                <field name="partner_id"/>
+                <field name="team_id"/>
+                <field name="user_id"/>
+                <field name="partner_name"/>
+                <field name="partner_email"/>
+                <field name="partner_city_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--2)Form View-->
+    <record id="view_crm_lead_form" model="ir.ui.view">
+        <field name="name">crm.lead.ept.form</field>
+        <field name="model">crm.lead.ept</field>
+        <field name="arch" type="xml">
+            <form>
+                <!--  Status  -->
+                <header>
+                    <button id="button_new" name="action_new" string="New"
+                            class="btn-primary" type="object" states="Lost"/>
+                    <button id="button_qualified" name="action_qualified" string="qualified"
+                            class="btn-primary" type="object" states="New"/>
+                    <button id="button_proposition" name="action_proposition" string="proposition"
+                            class="btn-primary" type="object" states="Qualified"/>
+                    <button id="button_won" name="action_won_date" string="Won"
+                            class="btn-primary" type="object" states="New,Qualified,Proposition"/>
+                    <button id="button_lost" name="action_lost_reason" string="Lost"
+                            class="btn-primary" type="object" states="New,Qualified,Proposition"/>
+                    <button id="button_lost" name="action_generate_sale_quotation" string="Generate Sale Quotation"
+                            class="btn-primary" type="object" states="Won"/>
+
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="team_leader"/>
+                            <field name="partner_id"/>
+                            <field name="team_id"/>
+                            <field name="user_id"/>
+                            <field name="next_followup_date"/>
+                        </group>
+                        <group>
+                            <field name="partner_name"/>
+                            <field name="partner_email"/>
+                            <field name="partner_country_id"/>
+                            <field name="partner_state_id"/>
+                            <field name="partner_city_id"/>
+                            <field name="won_date"
+                                   attrs="{'invisible': [('state', '!=', 'Won')], 'required': [('state', '=', 'Won')]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <notebook>
+                            <page string="Lost Reason"
+                                  attrs="{'invisible': [('state', '!=', 'Lost')], 'required': [('state', '=', 'Lost')]}">
+                                <field name="lost_reason"/>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--3)Search View-->
+    <record id="view_crm_lead_search" model="ir.ui.view">
+        <field name="name">crm.lead.ept.search</field>
+        <field name="model">crm.lead.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="team_leader"/>
+            </search>
+        </field>
+    </record>
+
+    <!--4)Actions-->
+    <record id="action_crm_lead" model="ir.actions.act_window">
+        <field name="name">CRM Lead</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crm.lead.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p>Create data about the Sales/Products</p>
+        </field>
+    </record>
+
+    <!--5)Menue-->
+
+    <menuitem id="menu_crm_lead2"
+              name="CRM Lead"
+              parent="menu_crm_team1"
+              action="action_crm_lead"
+              sequence="1"/>
+</odoo>

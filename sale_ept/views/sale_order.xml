@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1)Tree View-->
+    <record id="view_sale_order_tree" model="ir.ui.view">
+        <field name="name">sale.order.ept.tree</field>
+        <field name="model">sale.order.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="partner_invoice_id"/>
+                <field name="partner_shipping_id"/>
+                <field name="sale_order_date"/>
+                <field name="salesperson_id"/>
+                <field name="state"/>
+                <field name="total_weight"/>
+                <field name="total_volume"/>
+                <field name="order_total"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--2)Form View-->
+    <record id="view_sale_order_form" model="ir.ui.view">
+        <field name="name">sale.order.ept.form</field>
+        <field name="model">sale.order.ept</field>
+        <field name="arch" type="xml">
+            <form>
+                <!--  Status  -->
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id" domain="[('parent_id','=',None)]"/>
+                            <field name="partner_invoice_id"
+                                   domain="[('address_type', '=','Invoice'),('parent_id','=',partner_id)]"/>
+                            <field name="partner_shipping_id"
+                                   domain="[('address_type', '=','Shipping'),('parent_id','=',partner_id)]"/>
+                        </group>
+                        <group>
+                            <field name="sale_order_date"/>
+                            <field name="salesperson_id"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Order Line">
+                            <field name="order_line_ids">
+                                <tree editable="top">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price"/>
+                                    <field name="subtotal_without_tax"/>
+                                    <field name="uom_id"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--4)Search View-->
+    <record id="view_sale_order_search" model="ir.ui.view">
+        <field name="name">sale.order.ept.search</field>
+        <field name="model">sale.order.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+               <field name="partner_id"/>
+                <field name="sale_order_date"/>
+
+                <!--Group By -->
+                <group string="Group By">
+                    <filter string="Customer" name="partner_id" context="{'group_by':'partner_id'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <!--5)Actions-->
+    <record id="action_sale_order" model="ir.actions.act_window">
+        <field name="name">Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p>Create data about the Sale Order</p>
+        </field>
+    </record>
+
+    <!--6)Menue-->
+    <menuitem id="menu_sale_order"
+              name="Orders"
+              parent="menu_product_category2"
+              action="action_sale_order"
+              sequence="1"/>
+</odoo>

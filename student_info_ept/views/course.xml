@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1)Tree View-->
+    <record id="view_course_ept_tree" model="ir.ui.view">
+        <field name="name">course.ept.tree</field>
+        <field name="model">course.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="students_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--2)Form View-->
+    <record id="view_course_ept_form" model="ir.ui.view">
+        <field name="name">course.ept.form</field>
+        <field name="model">course.ept</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="students_ids"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--3)Search View-->
+    <record id="view_course_ept_search" model="ir.ui.view">
+        <field name="name">course.ept.search</field>
+        <field name="model">course.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="students_ids"/>
+            </search>
+        </field>
+    </record>
+
+    <!--4)Actions-->
+    <record id="action_course_ept" model="ir.actions.act_window">
+        <field name="name">Student</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">course.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p>All about the student course</p>
+        </field>
+    </record>
+
+    <!--5)Menue-->
+
+    <menuitem id="menu_course_ept3"
+              name="Courses"
+              parent="menu_student_ept2"
+              action="action_course_ept"
+              sequence="1"/>
+</odoo>

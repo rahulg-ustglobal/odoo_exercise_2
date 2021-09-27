@@ -1,0 +1,24 @@
+{
+    'name': 'My Sales',
+    'version': '1.0',
+    'sequence': -100,
+    'summary': 'My Sales : This will store the information about Sale',
+    'description': """My Sales : This will store the information about Sale""",
+    'depends': ['base', 'res_localization_ept'],
+    'data': [
+        'security/sale_security.xml',
+        'security/ir.model.access.csv',
+        'views/product_category.xml',
+        'views/product.xml',
+        'views/product_uom_category.xml',
+        'views/product_uom.xml',
+        'views/res_partner.xml',
+        'views/sale_order.xml',
+        'views/crm_team.xml',
+        'views/crm_lead.xml'
+    ],
+    'demo': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}
