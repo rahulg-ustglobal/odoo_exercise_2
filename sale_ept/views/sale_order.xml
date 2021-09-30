@@ -35,7 +35,6 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name"/>
                             <field name="partner_id" domain="[('parent_id','=',None)]"/>
                             <field name="partner_invoice_id"
                                    domain="[('address_type', '=','Invoice'),('parent_id','=',partner_id)]"/>

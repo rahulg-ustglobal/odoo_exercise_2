@@ -11,11 +11,9 @@ class SaleOrder(models.Model):
 
     partner_invoice_id = fields.Many2one(comodel_name='res.partner.ept', string="Partner Invoice Address",
                                          help="This field will accept the Partner Invoice Address")
-    # domain - Address Type should be Invoice - required and should be of selected main customer only
 
     partner_shipping_id = fields.Many2one(comodel_name='res.partner.ept', string="Partner Shipping Address",
                                           help="This field will accept the Partner Shipping Address")
-    # domain - Address Type should be Shipping - required and should be of selected main customer only
 
     sale_order_date = fields.Date(string="Sale Order Date", required=True, help="This field will accept the sale order "
                                                                                 "date of the product")
@@ -42,6 +40,11 @@ class SaleOrder(models.Model):
                                compute="order_total_calculation", store=True)
 
     lead_id = fields.Many2one(comodel_name='crm.lead.ept', string="Lead", help="This field will accept the lead")
+
+    @api.model
+    def create(self, vals):
+        vals['name'] = self.env['ir.sequence'].next_by_code('sale.order.ept')
+        return super(SaleOrder, self).create(vals)
 
     @api.depends('order_line_ids')
     def total_weight_calculation(self):
@@ -72,7 +75,7 @@ class SaleOrder(models.Model):
         if self.partner_id:
             invoice_address = self.env["res.partner.ept"].search(
                 [('address_type', '=', 'Invoice'), ('parent_id', '=', self.partner_id.id)], limit=1)
-            self.partner_invoice_id = invoice_address[0]
+            self.partner_invoice_id = invoice_address
             shipping_address = self.env["res.partner.ept"].search(
                 [('address_type', '=', 'Shipping'), ('parent_id', '=', self.partner_id.id)], limit=1)
-            self.partner_shipping_id = shipping_address[0]
+            self.partner_shipping_id = shipping_address

@@ -8,6 +8,7 @@
     'data': [
         'security/sale_security.xml',
         'security/ir.model.access.csv',
+        'data/ir_sequence_data.xml',
         'views/product_category.xml',
         'views/product.xml',
         'views/product_uom_category.xml',
@@ -17,7 +18,8 @@
         'views/crm_team.xml',
         'views/crm_lead.xml',
         'views/stock_warehouse.xml',
-        'views/stock_location.xml'
+        'views/stock_location.xml',
+        'views/stock_picking.xml'
     ],
     'demo': [],
     'installable': True,

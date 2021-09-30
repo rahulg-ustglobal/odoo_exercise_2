@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1)Tree View-->
+    <record id="view_stock_picking_tree" model="ir.ui.view">
+        <field name="name">stock.picking.ept.tree</field>
+        <field name="model">stock.picking.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="state"/>
+                <field name="sale_order_id"/>
+                <field name="purchase_order_id"/>
+                <field name="transaction_type"/>
+                <field name="transaction_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--2)Form View-->
+    <record id="view_stock_picking_form" model="ir.ui.view">
+        <field name="name">stock.picking.ept.form</field>
+        <field name="model">stock.picking.ept</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="state"/>
+                            <field name="sale_order_id"/>
+                        </group>
+                        <group>
+                            <field name="purchase_order_id"/>
+                            <field name="transaction_type"/>
+                            <field name="transaction_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--3)Search View-->
+    <record id="view_stock_picking_search" model="ir.ui.view">
+        <field name="name">stock.picking.ept.search</field>
+        <field name="model">stock.picking.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="state"/>
+                <field name="sale_order_id"/>
+            </search>
+        </field>
+    </record>
+
+    <!--4)Actions-->
+    <record id="action_view_stock_picking" model="ir.actions.act_window">
+        <field name="name">Stock Picking</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p>Create data about the Stock Picking</p>
+        </field>
+    </record>
+
+    <!--5)Menue-->
+
+    <menuitem id="menu_stock_picking"
+              name="Stock Picking"
+              parent="menu_stock_warehouse2"
+              action="action_view_stock_picking"
+              sequence="1"/>
+</odoo>
