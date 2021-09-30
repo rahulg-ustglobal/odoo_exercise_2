@@ -21,5 +21,7 @@ class Product(models.Model):
                                                                        "the product", default=1.00)
     cost_price = fields.Float(string="Cost Price", digits=(6, 2), help="This field will accept the cost_price of "
                                                                        "the product", default=1.00)
-    category_id = fields.Many2one(comodel_name='product.category.ept')
-    uom_id = fields.Many2one(comodel_name='product.uom.ept')
+    category_id = fields.Many2one(comodel_name='product.category.ept', string="Category ID",
+                                  help="This field will accept the Category ID")
+    uom_id = fields.Many2one(comodel_name='product.uom.ept', string="UOM ID",
+                             help="This field will accept the UOM ID")

@@ -15,7 +15,9 @@
         'views/res_partner.xml',
         'views/sale_order.xml',
         'views/crm_team.xml',
-        'views/crm_lead.xml'
+        'views/crm_lead.xml',
+        'views/stock_warehouse.xml',
+        'views/stock_location.xml'
     ],
     'demo': [],
     'installable': True,

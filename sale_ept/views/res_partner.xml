@@ -122,7 +122,6 @@
     </record>
 
 
-
     <!--4)Search View-->
     <record id="view_res_partner_search" model="ir.ui.view">
         <field name="name">res.partner.ept.search</field>

@@ -6,20 +6,25 @@ class SaleOrder(models.Model):
     _description = "Sale Order Ept : It will store the information about the Sale Order"
 
     name = fields.Char(string="Order No", required=True, help="This field will accept the order no of the product")
-    partner_id = fields.Many2one(comodel_name='res.partner.ept', required=True)
+    partner_id = fields.Many2one(comodel_name='res.partner.ept', string="Partner",
+                                 help="This field will accept the Partner ID", required=True)
 
-    partner_invoice_id = fields.Many2one(comodel_name='res.partner.ept')
+    partner_invoice_id = fields.Many2one(comodel_name='res.partner.ept', string="Partner Invoice Address",
+                                         help="This field will accept the Partner Invoice Address")
     # domain - Address Type should be Invoice - required and should be of selected main customer only
 
-    partner_shipping_id = fields.Many2one(comodel_name='res.partner.ept')
+    partner_shipping_id = fields.Many2one(comodel_name='res.partner.ept', string="Partner Shipping Address",
+                                          help="This field will accept the Partner Shipping Address")
     # domain - Address Type should be Shipping - required and should be of selected main customer only
 
     sale_order_date = fields.Date(string="Sale Order Date", required=True, help="This field will accept the sale order "
                                                                                 "date of the product")
 
-    order_line_ids = fields.One2many('sale.order.line.ept', 'order_no_id')
+    order_line_ids = fields.One2many(comodel_name='sale.order.line.ept', inverse_name='order_no_id',
+                                     string="Order Line", help="This field will accept the Order Line")
 
-    salesperson_id = fields.Many2one(comodel_name='res.users')
+    salesperson_id = fields.Many2one(comodel_name='res.users', string="Salesperson",
+                                     help="This field will accept the Salesperson")
 
     state = fields.Selection([('Draft', 'Draft'),
                               ('Confirmed', 'Confirmed'),
@@ -36,7 +41,7 @@ class SaleOrder(models.Model):
     order_total = fields.Float(string="Order Total", digits=(6, 2), help="This field will accept the order total",
                                compute="order_total_calculation", store=True)
 
-    lead_id = fields.Many2one(comodel_name='crm.lead.ept')
+    lead_id = fields.Many2one(comodel_name='crm.lead.ept', string="Lead", help="This field will accept the lead")
 
     @api.depends('order_line_ids')
     def total_weight_calculation(self):

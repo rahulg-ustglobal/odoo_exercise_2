@@ -51,7 +51,7 @@
                     <notebook>
                         <page string="Order Line">
                             <field name="order_line_ids">
-                                <tree editable="top">
+                                <tree editable="bottom">
                                     <field name="product_id"/>
                                     <field name="quantity"/>
                                     <field name="unit_price"/>

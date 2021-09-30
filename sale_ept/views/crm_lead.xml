@@ -7,8 +7,7 @@
         <field name="model">crm.lead.ept</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
-                <field name="team_leader"/>
+<!--                <field name="team_leader"/>-->
                 <field name="partner_id"/>
                 <field name="team_id"/>
                 <field name="user_id"/>
@@ -27,6 +26,10 @@
             <form>
                 <!--  Status  -->
                 <header>
+                    <button id="button_create_customer" name="action_create_customer" string="Create Customer"
+                            class="btn-primary" type="object" state="New"/>
+
+
                     <button id="button_new" name="action_new" string="New"
                             class="btn-primary" type="object" states="Lost"/>
                     <button id="button_qualified" name="action_qualified" string="qualified"
@@ -37,7 +40,8 @@
                             class="btn-primary" type="object" states="New,Qualified,Proposition"/>
                     <button id="button_lost" name="action_lost_reason" string="Lost"
                             class="btn-primary" type="object" states="New,Qualified,Proposition"/>
-                    <button id="button_lost" name="action_generate_sale_quotation" string="Generate Sale Quotation"
+                    <button id="button_generate_sale_quotation" name="action_generate_sale_quotation"
+                            string="Generate Sale Quotation"
                             class="btn-primary" type="object" states="Won"/>
 
                     <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
@@ -45,19 +49,11 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name"/>
-                            <field name="team_leader"/>
                             <field name="partner_id"/>
+<!--                            <field name="team_leader"/>-->
                             <field name="team_id"/>
                             <field name="user_id"/>
                             <field name="next_followup_date"/>
-                        </group>
-                        <group>
-                            <field name="partner_name"/>
-                            <field name="partner_email"/>
-                            <field name="partner_country_id"/>
-                            <field name="partner_state_id"/>
-                            <field name="partner_city_id"/>
                             <field name="won_date"
                                    attrs="{'invisible': [('state', '!=', 'Won')], 'required': [('state', '=', 'Won')]}"/>
                         </group>
@@ -67,6 +63,30 @@
                             <page string="Lost Reason"
                                   attrs="{'invisible': [('state', '!=', 'Lost')], 'required': [('state', '=', 'Lost')]}">
                                 <field name="lost_reason"/>
+                            </page>
+
+                            <page string="CRM Lead Lines">
+                                <field name="lead_line_ids">
+                                    <tree>
+                                        <field name="product_id"/>
+                                        <field name="expected_sell_qty"/>
+                                        <field name="uom_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Orders">
+                                <field name="order_ids"/>
+                            </page>
+
+                            <page string="Customer info">
+                                <group>
+                                    <field name="partner_name"/>
+                                    <field name="partner_email"/>
+                                    <field name="partner_country_id"/>
+                                    <field name="partner_state_id"/>
+                                    <field name="partner_city_id"/>
+                                </group>
                             </page>
                         </notebook>
                     </group>
@@ -81,8 +101,7 @@
         <field name="model">crm.lead.ept</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name"/>
-                <field name="team_leader"/>
+<!--                <field name="team_leader"/>-->
             </search>
         </field>
     </record>

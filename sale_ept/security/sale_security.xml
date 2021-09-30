@@ -28,7 +28,6 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_unlink" eval="True"/>
-
         <field name="domain_force">[('salesperson_id.id','=', user.id)]
         </field>
     </record>
@@ -40,7 +39,6 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_unlink" eval="True"/>
-
         <field name="domain_force">[(1,'=',1)]
         </field>
     </record>

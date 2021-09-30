@@ -8,6 +8,10 @@ access_sale_order_ept,access.sale.order.ept,model_sale_order_ept,sale_ept.group_
 access_sale_order_line_ept,access.sale.order.line.ept,model_sale_order_line_ept,sale_ept.group_my_sale_ept_salesperson,1,1,1,1
 access_crm_team_ept,access.crm.team.ept,model_crm_team_ept,sale_ept.group_my_sale_ept_salesperson,1,1,1,1
 access_crm_lead_ept,access.crm.lead.ept,model_crm_lead_ept,sale_ept.group_my_sale_ept_salesperson,1,1,1,1
+access_crm_lead_line_ept,access.crm.lead.line.ept,model_crm_lead_line_ept,sale_ept.group_my_sale_ept_salesperson,1,1,1,1
+access_stock_warehouse_ept,access.stock.warehouse.ept,model_stock_warehouse_ept,sale_ept.group_my_sale_ept_salesperson,1,1,1,1
+access_stock_location_ept,access.stock.location.ept,model_stock_location_ept,sale_ept.group_my_sale_ept_salesperson,1,1,1,1
+
 
 
 access_product_category_ept,access.product.category.ept,model_product_category_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
@@ -16,6 +20,10 @@ access_product_uom_ept,access.product.uom.ept,model_product_uom_ept,sale_ept.gro
 access_product_uom_category_ept,access.product.uom.category.ept,model_product_uom_category_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
 access_res_partner_ept,access.res.partner.ept,model_res_partner_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
 access_sale_order_ept,access.sale.order.ept,model_sale_order_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
-access_sale_order_line_ept,access.sale_order_line.ept,model_sale_order_line_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
+access_sale_order_line_ept,access.sale.order.line.ept,model_sale_order_line_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
 access_crm_team_ept,access.crm.team.ept,model_crm_team_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
 access_crm_lead_ept,access.crm.lead.ept,model_crm_lead_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
+access_crm_lead_line_ept,access.crm.lead.line.ept,model_crm_lead_line_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
+access_stock_warehouse_ept,access.stock.warehouse.ept,model_stock_warehouse_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
+access_stock_location_ept,access.stock.location.ept,model_stock_location_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
+
