@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1)Tree View-->
+    <record id="view_stock_move_tree" model="ir.ui.view">
+        <field name="name">stock.stock.move.ept.tree</field>
+        <field name="model">stock.move.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="uom_id"/>
+                <field name="source_location_id"/>
+                <field name="destination_location_id"/>
+                <field name="qty_to_deliver"/>
+                <field name="qty_delivered"/>
+                <field name="state"/>
+                <field name="sale_line_id"/>
+                <field name="purchase_line_id"/>
+                <field name="stock_inventory_id"/>
+                <field name="picking_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--2)Form View-->
+    <record id="view_stock_move_form" model="ir.ui.view">
+        <field name="name">stock.move.ept.form</field>
+        <field name="model">stock.move.ept</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <!--  Status  -->
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_id"/>
+                            <field name="uom_id"/>
+                            <field name="source_location_id"/>
+                            <field name="destination_location_id"/>
+                            <field name="qty_to_deliver"/>
+                        </group>
+                        <group>
+                            <field name="qty_delivered"/>
+                            <field name="sale_line_id"/>
+                            <field name="purchase_line_id"/>
+                            <field name="stock_inventory_id"/>
+                            <field name="picking_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--3)Search View-->
+    <record id="view_stock_move_search" model="ir.ui.view">
+        <field name="name">stock.move.ept.search</field>
+        <field name="model">stock.move.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="uom_id"/>
+            </search>
+        </field>
+    </record>
+
+    <!--4)Actions-->
+    <record id="action_view_stock_move" model="ir.actions.act_window">
+        <field name="name">Stock Move</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.move.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p>Create data about the Stock Move</p>
+        </field>
+    </record>
+
+    <!--5)Menue-->
+
+    <menuitem id="menu_stock_move"
+              name="Stock Move"
+              parent="menu_stock_warehouse2"
+              action="action_view_stock_move"
+              sequence="1"/>
+</odoo>

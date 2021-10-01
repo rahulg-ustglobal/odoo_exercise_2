@@ -19,7 +19,9 @@
         'views/crm_lead.xml',
         'views/stock_warehouse.xml',
         'views/stock_location.xml',
-        'views/stock_picking.xml'
+        'views/stock_picking.xml',
+        'views/stock_move.xml',
+        'views/purchase_order.xml'
     ],
     'demo': [],
     'installable': True,

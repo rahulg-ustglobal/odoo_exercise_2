@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1)Tree View-->
+    <record id="view_purchase_order_tree" model="ir.ui.view">
+        <field name="name">purchase.order.ept.tree</field>
+        <field name="model">purchase.order.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="warehouse_id"/>
+                <field name="partner_id"/>
+                <field name="order_date"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--2)Form View-->
+    <record id="view_purchase_order_form" model="ir.ui.view">
+        <field name="name">purchase.order.ept.form</field>
+        <field name="model">purchase.order.ept</field>
+        <field name="arch" type="xml">
+            <form>
+                <!--  Status  -->
+
+                <header>
+                    <button id="button_confirm" name="action_confirm" string="Confirm"
+                        class="btn-primary" type="object" state="Done"/>
+
+                    <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="warehouse_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="order_date"/>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Purchase Order Line">
+                            <field name="purchase_order_line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="uom_id"/>
+                                    <field name="quantity"/>
+                                    <field name="cost_price"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--3)Search View-->
+    <record id="view_purchase_order_search" model="ir.ui.view">
+        <field name="name">purchase.order.ept.search</field>
+        <field name="model">purchase.order.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="warehouse_id"/>
+                <field name="partner_id"/>
+            </search>
+        </field>
+    </record>
+
+    <!--4)Actions-->
+    <record id="action_purchase_order_move" model="ir.actions.act_window">
+        <field name="name">Purchase Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p>Create data about the Purchase Order</p>
+        </field>
+    </record>
+
+    <!--5)Menue-->
+
+    <menuitem id="menu_purchase_order"
+              name="Purchase Order"
+              parent="menu_stock_warehouse2"
+              action="action_purchase_order_move"
+              sequence="1"/>
+</odoo>

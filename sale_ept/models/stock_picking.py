@@ -25,12 +25,20 @@ class StockPicking(models.Model):
     transaction_type = fields.Selection([('In', 'In'), ('Out', 'Out')], string="Transaction Type",
                                         help="This field will accept the Transaction Type")
 
-    # move_ids = fields.One2many(comodel_name='stock.move.ept', inverse_name='picking_id', string="Move",
-    #                            help="This field will accept the Move IDs")
+    move_ids = fields.One2many(comodel_name='stock.move.ept', inverse_name='picking_id', string="Move",
+                               help="This field will accept the Move IDs")
 
     transaction_date = fields.Date(string="Transaction Date", default=fields.date.today(),
                                    help="This field will accept the Transaction Date and It will also"
                                         "accept the default date as a today")
 
+    # Button function with name as a action_validate
+    def action_validate(self):
+        self.state = "Validate"
+
+    @api.model
+    def create(self, vals):
+        vals['name'] = self.env['ir.sequence'].next_by_code('stock.picking.ept')
+        return super(StockPicking, self).create(vals)
 
 
