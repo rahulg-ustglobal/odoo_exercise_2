@@ -16,7 +16,9 @@ class SaleOrderLine(models.Model):
                                                                        "product")
     state = fields.Selection([('Draft', 'Draft'),
                               ('Confirmed', 'Confirmed'),
-                              ('Cancelled', 'Cancelled')], help="This field will accept the state of the product")
+                              ('Cancelled', 'Cancelled')],
+                             help="This field will accept the state of the product",
+                             default="Draft")
     uom_id = fields.Many2one('product.uom.ept')
 
     subtotal_without_tax = fields.Float(string="Subtotal Without Tax", help="This field will accept the subtotal but "

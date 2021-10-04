@@ -24,7 +24,7 @@
                 <!--  Status  -->
 
                 <header>
-                    <button id="button_confirm" name="action_confirm" string="Confirm"
+                    <button id="button_confirm_purchase" name="action_confirm_purchase" string="Confirm"
                         class="btn-primary" type="object" state="Done"/>
 
                     <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>

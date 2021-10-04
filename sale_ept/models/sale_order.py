@@ -1,4 +1,5 @@
 from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 
 class SaleOrder(models.Model):
@@ -41,6 +42,9 @@ class SaleOrder(models.Model):
 
     lead_id = fields.Many2one(comodel_name='crm.lead.ept', string="Lead", help="This field will accept the lead")
 
+    warehouse_id = fields.Many2one(comodel_name='stock.warehouse.ept', string="Warehouse",
+                                   help="This field will accept the Warehouse ID")
+
     @api.model
     def create(self, vals):
         vals['name'] = self.env['ir.sequence'].next_by_code('sale.order.ept')
@@ -79,3 +83,41 @@ class SaleOrder(models.Model):
             shipping_address = self.env["res.partner.ept"].search(
                 [('address_type', '=', 'Shipping'), ('parent_id', '=', self.partner_id.id)], limit=1)
             self.partner_shipping_id = shipping_address
+
+    # Button function with name as a action_confirm
+    def action_confirm_sale(self):
+        picking_vals = self.prepare_picking()
+        stock_picking = self.env['stock.picking.ept'].create(picking_vals)
+        move_vals = self.prepare_move(stock_picking)
+        self.env['stock.move.ept'].create(move_vals)
+        self.state = "Confirmed"
+
+    def prepare_picking(self):
+        picking_vals = {
+            'partner_id': self.partner_id.id,
+            'sale_order_id': self.id,
+            'transaction_type': 'Out'
+        }
+
+        return picking_vals
+
+    def prepare_move(self, stock_picking):
+        move_lines_vals = []
+        customer_location = self.env['stock.location.ept'].search([('location_type', '=', 'Customer')], limit=1)
+        if not customer_location:
+            raise ValidationError("Location is not found please try again !!!")
+        else:
+            for order_line in self.order_line_ids:
+                move_values = {
+                    'product_id': order_line.product_id.id,
+                    'name': "Product Name " + order_line.product_id.name,
+                    'uom_id': order_line.uom_id.id,
+                    'qty_to_deliver': order_line.quantity,
+                    'sale_line_id': order_line.id,
+                    'picking_id': stock_picking.id,
+                    'source_location_id': self.warehouse_id.stock_location_id.id,
+                    'destination_location_id': customer_location.id
+                }
+
+                move_lines_vals.append(move_values)
+            return move_lines_vals

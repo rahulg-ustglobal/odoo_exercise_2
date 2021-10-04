@@ -1,4 +1,5 @@
 from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 
 class PurchaseOrder(models.Model):
@@ -41,21 +42,29 @@ class PurchaseOrder(models.Model):
 
     def prepare_move(self, stock_picking):
         move_lines_vals = []
-        for purchase_order_line in self.purchase_order_line_ids:
-            stock_move = {
-                'product_id': purchase_order_line.product_id.id,
-                'uom_id': purchase_order_line.uom_id.id,
-                'qty_to_deliver': purchase_order_line.quantity,
-                'purchase_line_id': purchase_order_line.id,
-                'picking_id': stock_picking.id
-            }
+        vendor_location = self.env['stock.location.ept'].search([('location_type', '=', 'Vendor')],limit=1)
+        if not vendor_location:
+            raise ValidationError("Location is not found please try again !!!")
+        else:
+            for purchase_order_line in self.purchase_order_line_ids:
+                stock_move = {
+                    'product_id': purchase_order_line.product_id.id,
+                    'uom_id': purchase_order_line.uom_id.id,
+                    'qty_to_deliver': purchase_order_line.quantity,
+                    'purchase_line_id': purchase_order_line.id,
+                    'picking_id': stock_picking.id,
+                    # Set Location
+                    'source_location_id': vendor_location.id,
+                    'destination_location_id': self.warehouse_id.stock_location_id.id
+                }
 
-            move_lines_vals.append(stock_move)
-        return move_lines_vals
+                move_lines_vals.append(stock_move)
+            return move_lines_vals
 
     # Button function with name as a action_confirm
-    def action_confirm(self):
+    def action_confirm_purchase(self):
         picking_vals = self.prepare_picking()
         stock_picking = self.env['stock.picking.ept'].create(picking_vals)
         move_vals = self.prepare_move(stock_picking)
         stock_move = self.env['stock.move.ept'].create(move_vals)
+        self.state = "Confirm"

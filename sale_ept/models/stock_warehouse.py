@@ -17,12 +17,12 @@ class StockWarehouse(models.Model):
     @api.model
     def create(self, vals):
         location_view = self.env['stock.location.ept'].create({
-            'name': 'View',
+            'name': 'View:' + vals['short_code'],
             'location_type': 'View',
         })
 
         stock_location = self.env['stock.location.ept'].create({
-            'name': 'Stock Location',
+            'name': 'Internal:' + vals['short_code'],
             'parent_id': location_view.id,
             'location_type': 'Internal'
         })

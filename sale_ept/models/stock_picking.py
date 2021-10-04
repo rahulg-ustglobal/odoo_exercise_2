@@ -34,11 +34,11 @@ class StockPicking(models.Model):
 
     # Button function with name as a action_validate
     def action_validate(self):
-        self.state = "Validate"
+        for convert_state in self.move_ids:
+            convert_state.state = 'Done'
+        self.state = "Done"
 
     @api.model
     def create(self, vals):
         vals['name'] = self.env['ir.sequence'].next_by_code('stock.picking.ept')
         return super(StockPicking, self).create(vals)
-
-

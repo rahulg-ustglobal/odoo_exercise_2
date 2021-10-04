@@ -29,12 +29,17 @@
             <form>
                 <!--  Status  -->
                 <header>
+                    <button id="button_confirm_sale" name="action_confirm_sale" string="Confirm"
+                        class="btn-primary" type="object" state="Done"/>
+
+
                     <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>
                 </header>
 
                 <sheet>
                     <group>
                         <group>
+                            <field name="warehouse_id"/>
                             <field name="partner_id" domain="[('parent_id','=',None)]"/>
                             <field name="partner_invoice_id"
                                    domain="[('address_type', '=','Invoice'),('parent_id','=',partner_id)]"/>
