@@ -45,6 +45,9 @@ class SaleOrder(models.Model):
     warehouse_id = fields.Many2one(comodel_name='stock.warehouse.ept', string="Warehouse",
                                    help="This field will accept the Warehouse ID")
 
+    picking_ids = fields.One2many(comodel_name='stock.picking.ept',inverse_name='sale_order_id',readonly=True,
+                                  help="This field will accept the Picking ID")
+
     @api.model
     def create(self, vals):
         vals['name'] = self.env['ir.sequence'].next_by_code('sale.order.ept')
@@ -84,7 +87,7 @@ class SaleOrder(models.Model):
                 [('address_type', '=', 'Shipping'), ('parent_id', '=', self.partner_id.id)], limit=1)
             self.partner_shipping_id = shipping_address
 
-    # Button function with name as a action_confirm
+    # Button function with name as a action_confirm_sale
     def action_confirm_sale(self):
         picking_vals = self.prepare_picking()
         stock_picking = self.env['stock.picking.ept'].create(picking_vals)

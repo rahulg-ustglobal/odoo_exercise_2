@@ -27,7 +27,7 @@
                     <button id="button_confirm_purchase" name="action_confirm_purchase" string="Confirm"
                         class="btn-primary" type="object" state="Done"/>
 
-                    <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>
+                    <field name="state" widget="statusbar" options="{'clickable' : False}"/>
                 </header>
 
                 <sheet>
@@ -84,7 +84,7 @@
         </field>
     </record>
 
-    <!--5)Menue-->
+    <!--5)Menu-->
 
     <menuitem id="menu_purchase_order"
               name="Purchase Order"

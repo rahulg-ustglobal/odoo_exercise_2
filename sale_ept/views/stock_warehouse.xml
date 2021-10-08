@@ -63,7 +63,7 @@
         </field>
     </record>
 
-    <!--5)Menue-->
+    <!--5)Menus-->
 
     <menuitem id="menu_stock_warehouse2"
               name="Warehouse"

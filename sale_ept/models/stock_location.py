@@ -12,7 +12,7 @@ class StockLocation(models.Model):
     location_type = fields.Selection([('Vendor','Vendor'),
                                       ('Customer','Customer'),
                                       ('Internal','Internal'),
-                                      ('Inventory','Inventory Loss'),
+                                      ('Inventory Loss','Inventory Loss'),
                                       ('Production','Production'),
                                       ('Transit','Transit'),
                                       ('View','View')],string="Location Type",

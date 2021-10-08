@@ -160,7 +160,7 @@
         </field>
     </record>
 
-    <!--6)Menue-->
+    <!--6)Menu-->
     <menuitem id="menu_res_partner"
               name="Customer"
               parent="menu_product_category2"

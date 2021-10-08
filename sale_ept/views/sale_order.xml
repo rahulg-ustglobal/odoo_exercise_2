@@ -33,7 +33,7 @@
                         class="btn-primary" type="object" state="Done"/>
 
 
-                    <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>
+                    <field name="state" widget="statusbar" options="{'clickable' : False}"/>
                 </header>
 
                 <sheet>
@@ -62,8 +62,13 @@
                                     <field name="subtotal_without_tax"/>
                                     <field name="uom_id"/>
                                     <field name="description"/>
+                                    <field name="delivered_qty"/>
+                                    <field name="cancelled_qty"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page string="Picking">
+                            <field name="picking_ids"/>
                         </page>
                     </notebook>
 
@@ -102,7 +107,7 @@
         </field>
     </record>
 
-    <!--6)Menue-->
+    <!--6)Menu-->
     <menuitem id="menu_sale_order"
               name="Orders"
               parent="menu_product_category2"

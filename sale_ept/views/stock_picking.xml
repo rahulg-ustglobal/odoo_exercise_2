@@ -14,6 +14,7 @@
                 <field name="purchase_order_id"/>
                 <field name="transaction_type"/>
                 <field name="transaction_date"/>
+                <field name="back_order_id"/>
             </tree>
         </field>
     </record>
@@ -26,10 +27,16 @@
             <form>
                 <header>
                     <!--  Status  -->
-                    <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>
+                    <field name="state" widget="statusbar" options="{'clickable' : False}"/>
 
                     <button id="button_validate" name="action_validate" string="Validate"
-                            class="btn-primary" type="object" state="Done"/>
+                            class="btn-primary" type="object"
+                            attrs="{'invisible': [('state', '=', 'Cancelled')]}"/>
+
+                    <button id="button_cancelled_sale" name="action_cancelled_sale" string="Cancelled"
+                        class="btn-danger" type="object" state="Cancelled"  />
+
+
                 </header>
                 <sheet>
                     <group>
@@ -37,6 +44,7 @@
                             <field name="name"/>
                             <field name="partner_id"/>
                             <field name="sale_order_id"/>
+                            <field name="back_order_id"/>
                         </group>
                         <group>
                             <field name="purchase_order_id"/>
@@ -47,19 +55,19 @@
                     <group>
                         <notebook>
                             <page string="Sale Order">
-                                <group>
-                                    <field name="move_ids">
+
+                                <field name="move_ids">
                                     <tree>
                                         <field name="product_id"/>
                                         <field name="uom_id"/>
-                                        <field name="qty_delivered"/>
                                         <field name="qty_to_deliver"/>
+                                        <field name="qty_delivered"/>
                                         <field name="state"/>
                                         <field name="source_location_id"/>
                                         <field name="destination_location_id"/>
                                     </tree>
                                 </field>
-                                </group>
+
                             </page>
                         </notebook>
                     </group>
@@ -93,11 +101,11 @@
         </field>
     </record>
 
-    <!--5)Menue-->
+    <!--5)Menu-->
 
     <menuitem id="menu_stock_picking"
               name="Stock Picking"
-              parent="menu_stock_warehouse2"
+              parent="menu_stock_inventory"
               action="action_view_stock_picking"
               sequence="1"/>
 </odoo>

@@ -60,11 +60,11 @@
         </field>
     </record>
 
-    <!--5)Menue-->
+    <!--5)Menu-->
 
     <menuitem id="menu_stock_location2"
               name="Stock Location"
-              parent="menu_stock_warehouse2"
+              parent="menu_stock_inventory"
               action="action_stock_location"
               sequence="1"/>
 </odoo>

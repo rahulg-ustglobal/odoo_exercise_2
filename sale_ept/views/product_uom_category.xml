@@ -54,7 +54,7 @@
         </field>
     </record>
 
-    <!--5)Menue-->
+    <!--5)Menu-->
     <menuitem id="menu_product_uom_category"
               name="Product Uom Category"
               parent="menu_product_category2"

@@ -15,6 +15,9 @@ access_stock_picking_ept,access.stock.picking.ept,model_stock_picking_ept,sale_e
 access_stock_move_ept,access.stock.move.ept,model_stock_move_ept,sale_ept.group_my_sale_ept_salesperson,1,1,1,1
 access_purchase_order_ept,access.purchase.order.ept,model_purchase_order_ept,sale_ept.group_my_sale_ept_salesperson,1,1,1,1
 access_purchase_order_line_ept,access.purchase.order.line.ept,model_purchase_order_line_ept,sale_ept.group_my_sale_ept_salesperson,1,1,1,1
+access_stock_inventory_ept,access.stock.inventory.ept,model_stock_inventory_ept,sale_ept.group_my_sale_ept_salesperson,1,1,1,1
+access_stock_inventory_line_ept,access.stock.inventory.line.ept,model_stock_inventory_line_ept,sale_ept.group_my_sale_ept_salesperson,1,1,1,1
+access_product_stock_update_ept,access.product.stock.update.ept,model_product_stock_update_ept,sale_ept.group_my_sale_ept_salesperson,1,1,1,1
 
 
 access_product_category_ept,access.product.category.ept,model_product_category_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
@@ -33,3 +36,6 @@ access_stock_picking_ept,access.stock.picking.ept,model_stock_picking_ept,sale_e
 access_stock_move_ept,access.stock.move.ept,model_stock_move_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
 access_purchase_order_ept,access.purchase.order.ept,model_purchase_order_ept,,1,1,1,1
 access_purchase_order_line_ept,access.purchase.order.line.ept,model_purchase_order_line_ept,,1,1,1,1
+access_stock_inventory_ept,access.stock.inventory.ept,model_stock_inventory_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
+access_stock_inventory_line_ept,access.stock.inventory.line.ept,model_stock_inventory_line_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1
+access_product_stock_update_ept,access.product.stock.update.ept,model_product_stock_update_ept,sale_ept.group_my_sale_ept_manager,1,1,1,1

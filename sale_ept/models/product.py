@@ -41,7 +41,32 @@ class Product(models.Model):
                                  help="This field will accept the Product Stock", digits=(6, 2))
 
     def product_stock_calculation(self):
-        self.product_stock = 0
+        # warehouse = self.env['stock.warehouse.ept'].search([])
+        # stock_location = []
+        # for stock_locations in warehouse:
+        #     location_s = stock_locations.stock_location_id.id
+        #     stock_location.append(location_s)
+
         warehouse = self.env['stock.warehouse.ept'].search([])
-        for products in warehouse:
-            pass
+        stock_location = []
+        location = self.env.context.get('location_id')
+        if location:
+            stock_location.append(location)
+        else:
+            stock_location = [location.stock_location_id.id for location in warehouse]
+
+        for record in self:
+            record.product_stock = 0
+            move_line_in = self.env['stock.move.ept'].search(
+                [('destination_location_id', 'in', stock_location), ('product_id', '=', record.id),
+                 ('state', '=', 'Done')])
+
+            for stock in move_line_in:
+                record.product_stock += stock.qty_delivered
+
+            move_line_out = self.env['stock.move.ept'].search(
+                [('source_location_id', 'in', stock_location), ('product_id', '=', record.id),
+                 ('state', '=', 'Done')])
+
+            for stock in move_line_out:
+                record.product_stock -= stock.qty_delivered

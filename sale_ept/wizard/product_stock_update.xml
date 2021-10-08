@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_product_stock_update_wizard_form" model="ir.ui.view">
+        <field name="name">product.stock.update.ept.wizard</field>
+        <field name="model">product.stock.update.ept</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="location_id"/>
+                        <field name="available_stock"/>
+                    </group>
+                    <group>
+                        <field name="counted_qty"/>
+                        <field name="difference_qty"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button id="button_update_stock" name="action_update_stock" string="Update Stock"
+                            class="btn-primary" type="object"/>
+
+<!--                    <button id="button_cancel" name="action_cancel" string="Cancel"-->
+<!--                            class="btn-primary" type="object"/>-->
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_product_stock_update_wizard" model="ir.actions.act_window">
+        <field name="name">Stock Update</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.stock.update.ept</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_product_stock_update_wizard_form"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="sale_ept.model_product_ept"/>
+        <field name="binding_view_types">form</field>
+    </record>
+
+
+</odoo>

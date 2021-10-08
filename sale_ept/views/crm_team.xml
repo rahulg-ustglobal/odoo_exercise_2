@@ -52,7 +52,7 @@
         </field>
     </record>
 
-    <!--5)Menue-->
+    <!--5)Menu-->
 
     <menuitem id="menu_crm_team1"
               name="CRM"

@@ -32,7 +32,8 @@
 
                 <!--  Status  -->
                 <header>
-                    <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>
+                    <field name="state" widget="statusbar" options="{'clickable' : False}"/>
+
                 </header>
 
                 <sheet>
@@ -82,11 +83,11 @@
         </field>
     </record>
 
-    <!--5)Menue-->
+    <!--5)Menu-->
 
     <menuitem id="menu_stock_move"
               name="Stock Move"
-              parent="menu_stock_warehouse2"
+              parent="menu_stock_inventory"
               action="action_view_stock_move"
               sequence="1"/>
 </odoo>

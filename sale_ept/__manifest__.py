@@ -10,6 +10,7 @@
         'security/ir.model.access.csv',
         'data/ir_sequence_data.xml',
         'views/product_category.xml',
+        'wizard/product_stock_update.xml',
         'views/product.xml',
         'views/product_uom_category.xml',
         'views/product_uom.xml',
@@ -21,7 +22,8 @@
         'views/stock_location.xml',
         'views/stock_picking.xml',
         'views/stock_move.xml',
-        'views/purchase_order.xml'
+        'views/purchase_order.xml',
+        'views/stock_inventory.xml'
     ],
     'demo': [],
     'installable': True,

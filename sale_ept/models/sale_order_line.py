@@ -19,11 +19,26 @@ class SaleOrderLine(models.Model):
                               ('Cancelled', 'Cancelled')],
                              help="This field will accept the state of the product",
                              default="Draft")
-    uom_id = fields.Many2one('product.uom.ept')
+    uom_id = fields.Many2one(comodel_name='product.uom.ept', string="UOM ID",
+                             help="This field will accept the uom id")
 
     subtotal_without_tax = fields.Float(string="Subtotal Without Tax", help="This field will accept the subtotal but "
                                                                             "without tax",
                                         compute="subtotal_without_tax_calculation", store=True)
+
+    stock_move_ids = fields.One2many(comodel_name='stock.move.ept', inverse_name='sale_line_id', readonly=True,
+                                     help="This field will accept the Stock Move Ids")
+
+    delivered_qty = fields.Float(string="Delivered Qty", compute="delivered_qty_calculation", digits=(6, 2),
+                                 store=False,
+                                 help="This field will accept the Delivered Qty")
+
+    # It should scan through all the validated delivery orders and calculate the the total delivered quantities
+
+    cancelled_qty = fields.Float(string="Cancelled Qty", compute="cancelled_qty_calculation", store=False,
+                                 help="This field will accept the Cancelled Qty")
+
+    # It should scan through all the cancelled delivery orders and calculate the the total delivered quantities
 
     @api.onchange('product_id')
     def product_unit_price(self):
@@ -34,3 +49,21 @@ class SaleOrderLine(models.Model):
         for line in self:
             line.subtotal_without_tax += line.quantity * line.unit_price
 
+    def delivered_qty_calculation(self):
+        for rec in self:
+            delivered_qty = 0
+            if rec.stock_move_ids:
+                for stock_move in rec.stock_move_ids:
+                    if stock_move.state == 'Done':
+                        delivered_qty += stock_move.qty_delivered
+            rec.delivered_qty = delivered_qty
+
+    def cancelled_qty_calculation(self):
+        # self.cancelled_qty=0
+        for rec in self:
+            cancelled_qty = 0
+            if rec.stock_move_ids:
+                for stock_move in rec.stock_move_ids:
+                    if stock_move.state == 'Cancelled':
+                        cancelled_qty += stock_move.qty_delivered
+            rec.cancelled_qty = cancelled_qty

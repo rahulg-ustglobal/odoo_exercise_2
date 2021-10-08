@@ -44,7 +44,7 @@
                             string="Generate Sale Quotation"
                             class="btn-primary" type="object" states="Won"/>
 
-                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    <field name="state" widget="statusbar" options="{'clickable': False}"/>
                 </header>
                 <sheet>
                     <group>
@@ -101,7 +101,7 @@
         <field name="model">crm.lead.ept</field>
         <field name="arch" type="xml">
             <search>
-<!--                <field name="team_leader"/>-->
+                <field name="partner_name"/>
             </search>
         </field>
     </record>
@@ -117,7 +117,7 @@
         </field>
     </record>
 
-    <!--5)Menue-->
+    <!--5)Menu-->
 
     <menuitem id="menu_crm_lead2"
               name="CRM Lead"

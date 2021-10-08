@@ -25,6 +25,9 @@
         <field name="model">product.ept</field>
         <field name="arch" type="xml">
             <form>
+<!--                <header>-->
+<!--                    <button name="%(sale_ept.action_product_stock_update_wizard)d" string="Update Stock" type="action"/>-->
+<!--                </header>-->
                 <sheet>
                     <group>
                         <group>
@@ -73,7 +76,7 @@
         </field>
     </record>
 
-    <!--5)Menue-->
+    <!--5)Menu-->
 
     <menuitem id="menu_product"
               name="Product"
