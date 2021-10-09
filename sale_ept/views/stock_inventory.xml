@@ -34,7 +34,7 @@
 
                     <button id="button_cancelled" name="action_cancelled" string="Cancelled"
                             class="btn-primary" type="object" state="Cancelled"
-                            attrs="{'invisible':[('state','=','Done')]}"/>
+                            attrs="{'invisible':[('state','in',['Done','Cancelled'])]}"/>
 
                     <field name="state" widget="statusbar" options="{'clickable' : False}"/>
                 </header>

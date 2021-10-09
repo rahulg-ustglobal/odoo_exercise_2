@@ -21,8 +21,8 @@
                     <button id="button_update_stock" name="action_update_stock" string="Update Stock"
                             class="btn-primary" type="object"/>
 
-<!--                    <button id="button_cancel" name="action_cancel" string="Cancel"-->
-<!--                            class="btn-primary" type="object"/>-->
+                    <button id="button_cancel" name="action_cancel" string="Cancel"
+                            class="btn-primary" type="object"/>
                 </footer>
 
             </form>

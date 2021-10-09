@@ -45,7 +45,7 @@ class SaleOrder(models.Model):
     warehouse_id = fields.Many2one(comodel_name='stock.warehouse.ept', string="Warehouse",
                                    help="This field will accept the Warehouse ID")
 
-    picking_ids = fields.One2many(comodel_name='stock.picking.ept',inverse_name='sale_order_id',readonly=True,
+    picking_ids = fields.One2many(comodel_name='stock.picking.ept', inverse_name='sale_order_id', readonly=True,
                                   help="This field will accept the Picking ID")
 
     @api.model
@@ -124,3 +124,9 @@ class SaleOrder(models.Model):
 
                 move_lines_vals.append(move_values)
             return move_lines_vals
+
+    def delivery_order(self):
+        # delivary_order = self.picking_ids
+        action = self.env['ir.actions.actions']._for_xml_id("sale_ept.action_view_stock_picking")
+        action['domain'] = [('id','in',self.picking_ids.ids)]
+        return action

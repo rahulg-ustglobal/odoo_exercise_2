@@ -34,7 +34,7 @@
                             attrs="{'invisible': [('state', '=', 'Cancelled')]}"/>
 
                     <button id="button_cancelled_sale" name="action_cancelled_sale" string="Cancelled"
-                        class="btn-danger" type="object" state="Cancelled"  />
+                        class="btn-danger" type="object" attrs="{'invisible': [('state', '=', 'Cancelled')]}"/>
 
 
                 </header>

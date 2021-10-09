@@ -48,3 +48,6 @@ class ProductStockUpdate(models.Model):
         self.difference_qty = 0
         for quantity in self:
             quantity.difference_qty = quantity.counted_qty - quantity.available_stock
+
+    def action_cancel(self):
+        pass

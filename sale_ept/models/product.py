@@ -70,3 +70,7 @@ class Product(models.Model):
 
             for stock in move_line_out:
                 record.product_stock -= stock.qty_delivered
+
+    def action_product_stock_update(self):
+        action = self.env["ir.actions.actions"]._for_xml_id("sale_ept.action_product_stock_update_wizard")
+        return action

@@ -30,13 +30,24 @@
                 <!--  Status  -->
                 <header>
                     <button id="button_confirm_sale" name="action_confirm_sale" string="Confirm"
-                        class="btn-primary" type="object" state="Done"/>
-
+                            attrs="{'invisible': [('state', '=', 'Confirmed')]}" class="btn-primary" type="object"
+                            state="Done"/>
 
                     <field name="state" widget="statusbar" options="{'clickable' : False}"/>
                 </header>
 
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="delivery_order"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-globe icon">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Delivery</span>
+                                <span class="o_stat_text">Order</span>
+                            </div>
+                        </button>
+                    </div>
                     <group>
                         <group>
                             <field name="warehouse_id"/>
@@ -84,7 +95,7 @@
         <field name="arch" type="xml">
             <search>
                 <field name="name"/>
-               <field name="partner_id"/>
+                <field name="partner_id"/>
                 <field name="sale_order_date"/>
 
                 <!--Group By -->
