@@ -31,10 +31,10 @@
 
                     <button id="button_validate" name="action_validate" string="Validate"
                             class="btn-primary" type="object"
-                            attrs="{'invisible': [('state', '=', 'Cancelled')]}"/>
+                            attrs="{'invisible': ['|',('state', '=', 'Done'),('state', '=', 'Cancelled')]}"/>
 
                     <button id="button_cancelled_sale" name="action_cancelled_sale" string="Cancelled"
-                        class="btn-danger" type="object" attrs="{'invisible': [('state', '=', 'Cancelled')]}"/>
+                        class="btn-danger" type="object" attrs="{'invisible': ['|',('state', '=', 'Cancelled'),('state', '=', 'Done')]}"/>
 
 
                 </header>

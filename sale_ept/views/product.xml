@@ -56,8 +56,7 @@
                     </group>
                     <notebook>
                         <page string="Accounting">
-                            <field name="tax_ids">
-                            </field>
+                            <field name="tax_ids" widget="many2many_tags"/>
                         </page>
                     </notebook>
                 </sheet>

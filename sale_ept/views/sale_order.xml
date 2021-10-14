@@ -64,6 +64,7 @@
                         <group>
                             <field name="sale_order_date"/>
                             <field name="salesperson_id"/>
+                            <field name="total_tax"/>
                         </group>
                     </group>
 
@@ -75,10 +76,12 @@
                                     <field name="quantity"/>
                                     <field name="unit_price"/>
                                     <field name="subtotal_without_tax"/>
+                                    <field name="subtotal_with_tax"/>
                                     <field name="uom_id"/>
                                     <field name="description"/>
                                     <field name="delivered_qty"/>
                                     <field name="cancelled_qty"/>
+                                    <field name="tax_ids" widget="many2many_tags"/>
                                     <field name="warehouse_id"/>
                                 </tree>
                             </field>

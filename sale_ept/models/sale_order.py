@@ -48,6 +48,14 @@ class SaleOrder(models.Model):
     picking_ids = fields.One2many(comodel_name='stock.picking.ept', inverse_name='sale_order_id', readonly=True,
                                   help="This field will accept the Picking ID")
 
+    total_tax = fields.Float(string="Total Tax", decimal=(6, 2), compute="total_tax_calculation", store=True)
+
+    @api.depends('order_line_ids')
+    def total_tax_calculation(self):
+        for record in self.order_line_ids:
+            total_tax = record.subtotal_with_tax - record.subtotal_without_tax
+            self.total_tax = total_tax
+
     @api.model
     def create(self, vals):
         vals['name'] = self.env['ir.sequence'].next_by_code('sale.order.ept')

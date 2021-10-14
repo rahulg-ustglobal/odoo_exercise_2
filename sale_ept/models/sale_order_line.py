@@ -40,13 +40,24 @@ class SaleOrderLine(models.Model):
 
     # It should scan through all the cancelled delivery orders and calculate the the total delivered quantities
 
-    warehouse_id = fields.Many2one(comodel_name='stock.warehouse.ept',string="Warehouse",
+    warehouse_id = fields.Many2one(comodel_name='stock.warehouse.ept', string="Warehouse",
                                    help="This field will accept the Warehouse ID")
 
-    tax_ids = fields.Many2many(comodel_name='account.tax.ept',string="Tax Ids",
+    tax_ids = fields.Many2many(comodel_name='account.tax.ept', string="Tax",
                                help="This field will accept the Tax Ids")
 
+    subtotal_with_tax = fields.Float(string="Subtotal With Tax", digits=(6, 2),
+                                     compute="subtotal_with_tax_calculation", store=True,
+                                     help="This field will accept the Subtotal with tax")
 
+    @api.onchange('product_id')
+    def onchange_for_tax(self):
+        for record in self:
+            if record.product_id:
+                record.quantity = 1
+                record.tax_ids = record.product_id.tax_ids
+                record.uom_id = record.product_id.uom_id
+                record.unit_price = record.product_id.sale_price
 
     @api.onchange('product_id')
     def product_unit_price(self):
@@ -75,3 +86,18 @@ class SaleOrderLine(models.Model):
                     if stock_move.state == 'Cancelled':
                         cancelled_qty += stock_move.qty_delivered
             rec.cancelled_qty = cancelled_qty
+
+    @api.depends('quantity', 'unit_price', 'tax_ids')
+    def subtotal_with_tax_calculation(self):
+
+        for order_line in self:
+            subtotal_with_tax = order_line.unit_price
+
+            for tax in order_line.tax_ids:
+                if tax.tax_amount_type == 'Fixed':
+                    subtotal_with_tax += tax.tax_value
+                else:
+                    subtotal_with_tax += (order_line.unit_price * tax.tax_value) / 100
+
+            order_line.subtotal_with_tax = order_line.quantity * subtotal_with_tax
+
