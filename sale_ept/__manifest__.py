@@ -23,7 +23,8 @@
         'views/stock_picking.xml',
         'views/stock_move.xml',
         'views/purchase_order.xml',
-        'views/stock_inventory.xml'
+        'views/stock_inventory.xml',
+        'views/account_tax.xml'
     ],
     'demo': [],
     'installable': True,

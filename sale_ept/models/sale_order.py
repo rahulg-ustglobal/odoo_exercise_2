@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 
 
@@ -89,11 +89,17 @@ class SaleOrder(models.Model):
 
     # Button function with name as a action_confirm_sale
     def action_confirm_sale(self):
-        picking_vals = self.prepare_picking()
-        stock_picking = self.env['stock.picking.ept'].create(picking_vals)
-        move_vals = self.prepare_move(stock_picking)
-        self.env['stock.move.ept'].create(move_vals)
-        self.state = "Confirmed"
+        for order_line in self.order_line_ids:
+            if not order_line.warehouse_id:
+                order_line.warehouse_id = self.warehouse_id
+
+        list = set(self.warehouse_id + self.order_line_ids.warehouse_id)
+        for warehouse in list:
+            picking_vals = self.prepare_picking()
+            stock_picking = self.env['stock.picking.ept'].create(picking_vals)
+            move_vals = self.prepare_move(stock_picking, warehouse)
+            self.env['stock.move.ept'].create(move_vals)
+            self.state = "Confirmed"
 
     def prepare_picking(self):
         picking_vals = {
@@ -104,13 +110,13 @@ class SaleOrder(models.Model):
 
         return picking_vals
 
-    def prepare_move(self, stock_picking):
+    def prepare_move(self, stock_picking, warehouse):
         move_lines_vals = []
         customer_location = self.env['stock.location.ept'].search([('location_type', '=', 'Customer')], limit=1)
         if not customer_location:
             raise ValidationError("Location is not found please try again !!!")
         else:
-            for order_line in self.order_line_ids:
+            for order_line in self.order_line_ids.filtered(lambda a: a.warehouse_id == warehouse):
                 move_values = {
                     'product_id': order_line.product_id.id,
                     'name': "Product Name " + order_line.product_id.name,
@@ -125,8 +131,68 @@ class SaleOrder(models.Model):
                 move_lines_vals.append(move_values)
             return move_lines_vals
 
-    def delivery_order(self):
-        # delivary_order = self.picking_ids
-        action = self.env['ir.actions.actions']._for_xml_id("sale_ept.action_view_stock_picking")
-        action['domain'] = [('id','in',self.picking_ids.ids)]
+    # Core Code
+    #     action = {
+    #         'name': _("Paid Bills"),
+    #         'type': 'ir.actions.act_window',
+    #         'res_model': 'account.move',
+    #         'context': {'create': False},
+    #     }
+    #     if len(self.reconciled_bill_ids) == 1:
+    #         action.update({
+    #             'view_mode': 'form',
+    #             'res_id': self.reconciled_bill_ids.id,
+    #         })
+    #     else:
+    #         action.update({
+    #             'view_mode': 'list,form',
+    #             'domain': [('id', 'in', self.reconciled_bill_ids.ids)],
+    #         })
+    #     return action
+
+    def action_delivery_order(self):
+        pickings = self.picking_ids.ids
+        view_id = self.env.ref('sale_ept.view_stock_picking_tree').id
+        view_form_id = self.env.ref('sale_ept.view_stock_picking_form').id
+        action = {
+            'type': 'ir.actions.act_window',
+            'name': _('Delivery Order'),
+            'res_model': 'stock.picking.ept',
+        }
+        if len(pickings) == 1:
+            action.update({
+                'view_mode': 'form',
+                'views': [[view_form_id, 'form']],
+                'res_id': pickings[0]
+            })
+        else:
+            action.update({
+                'view_mode': 'tree,form',
+                # 'views': [[view_id, 'tree']],
+                'views': [(view_id, 'tree'), (view_form_id, 'form')],
+                'domain': [('sale_order_id', 'in', [self.id])],
+            })
+        return action
+
+    def action_stock_move(self):
+        stock_move = self.picking_ids.move_ids.ids
+        view_id = self.env.ref('sale_ept.view_stock_move_tree').id
+        view_form_id = self.env.ref('sale_ept.view_stock_move_form').id
+        action = {
+            'type': 'ir.actions.act_window',
+            'name': _('Stock Move'),
+            'res_model': 'stock.move.ept',
+        }
+        if len(stock_move) == 1:
+            action.update({
+                'view_mode': 'form',
+                'views': [[view_form_id, 'form']],
+                'res_id': stock_move[0]
+            })
+        else:
+            action.update({
+                'view_mode': 'tree,form',
+                'views': [(view_id, 'tree'), (view_form_id, 'form')],
+                'domain': [('id', 'in', stock_move)],
+            })
         return action

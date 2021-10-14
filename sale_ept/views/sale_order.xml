@@ -33,19 +33,23 @@
                             attrs="{'invisible': [('state', '=', 'Confirmed')]}" class="btn-primary" type="object"
                             state="Done"/>
 
-                    <field name="state" widget="statusbar" options="{'clickable' : False}"/>
+                    <field name="state" widget="statusbar" options="{'clickable' : True}"/>
                 </header>
 
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="delivery_order"
+                        <button class="oe_stat_button"
+                                string="Delivery Order"
+                                name="action_delivery_order"
                                 type="object"
-                                class="oe_stat_button"
-                                icon="fa-globe icon">
-                            <div class="o_field_widget o_stat_info">
-                                <span class="o_stat_text">Delivery</span>
-                                <span class="o_stat_text">Order</span>
-                            </div>
+                                icon="fa-bars">
+                        </button>
+
+                        <button class="oe_stat_button"
+                                string="Stock Move"
+                                name="action_stock_move"
+                                type="object"
+                                icon="fa-signal">
                         </button>
                     </div>
                     <group>
@@ -75,6 +79,7 @@
                                     <field name="description"/>
                                     <field name="delivered_qty"/>
                                     <field name="cancelled_qty"/>
+                                    <field name="warehouse_id"/>
                                 </tree>
                             </field>
                         </page>

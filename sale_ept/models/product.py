@@ -40,6 +40,12 @@ class Product(models.Model):
     product_stock = fields.Float(string="Product Stock", store=False, compute="product_stock_calculation",
                                  help="This field will accept the Product Stock", digits=(6, 2))
 
+    tax_ids = fields.Many2many(string="Customer Taxes",comodel_name='account.tax.ept', help="This field will accept "
+                                                                                            "the Tax IDs"
+                               ,domain=[('tax_use', '=', 'Sales')])
+
+    # domain - load only Sales Type of tax
+
     def product_stock_calculation(self):
         # warehouse = self.env['stock.warehouse.ept'].search([])
         # stock_location = []

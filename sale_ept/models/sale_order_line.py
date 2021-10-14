@@ -40,6 +40,14 @@ class SaleOrderLine(models.Model):
 
     # It should scan through all the cancelled delivery orders and calculate the the total delivered quantities
 
+    warehouse_id = fields.Many2one(comodel_name='stock.warehouse.ept',string="Warehouse",
+                                   help="This field will accept the Warehouse ID")
+
+    tax_ids = fields.Many2many(comodel_name='account.tax.ept',string="Tax Ids",
+                               help="This field will accept the Tax Ids")
+
+
+
     @api.onchange('product_id')
     def product_unit_price(self):
         self.unit_price = self.product_id.cost_price

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1)Tree View-->
+    <record id="view_account_tax_tree" model="ir.ui.view">
+        <field name="name">account.tax.ept.tree</field>
+        <field name="model">account.tax.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="tax_use"/>
+                <field name="tax_value"/>
+                <field name="tax_amount_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--2)Form View-->
+    <record id="view_account_tax_form" model="ir.ui.view">
+        <field name="name">account.tax.ept.form</field>
+        <field name="model">account.tax.ept</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="tax_use"/>
+                        </group>
+                        <group>
+                            <field name="tax_value"/>
+                            <field name="tax_amount_type"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--3)Search View-->
+    <record id="view_account_tax_search" model="ir.ui.view">
+        <field name="name">account.tax.ept.search</field>
+        <field name="model">account.tax.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+
+                <!--Group By -->
+                <group string="Group By">
+                    <filter string="Tax Use" name="tax_use" context="{'group_by':'tax_use'}"/>
+                    <filter string="Tax Amount Type" name="tax_amount_type" context="{'group_by':'tax_amount_type'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <!--4)Actions-->
+    <record id="action_account_tax" model="ir.actions.act_window">
+        <field name="name">Account Tax</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.tax.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p>Create data about the Account Tax</p>
+        </field>
+    </record>
+
+    <!--5)Menu-->
+    <menuitem id="menu_account_tax1"
+              name="Account Tax"
+              parent="menu_product_category1"
+              sequence="1"/>
+
+    <menuitem id="menu_account_tax2"
+              name="Account Tax"
+              parent="menu_account_tax1"
+              action="action_account_tax"
+              sequence="1"/>
+</odoo>

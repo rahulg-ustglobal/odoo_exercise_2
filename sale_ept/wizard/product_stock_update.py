@@ -1,7 +1,7 @@
 from odoo import fields, models, api
 
 
-class ProductStockUpdate(models.Model):
+class ProductStockUpdate(models.TransientModel):
     _name = "product.stock.update.ept"
     _description = "Product Stock Update Ept : It will store the information about the Product Stock Update"
 
@@ -48,6 +48,3 @@ class ProductStockUpdate(models.Model):
         self.difference_qty = 0
         for quantity in self:
             quantity.difference_qty = quantity.counted_qty - quantity.available_stock
-
-    def action_cancel(self):
-        pass

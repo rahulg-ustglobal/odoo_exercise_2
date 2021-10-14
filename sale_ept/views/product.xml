@@ -54,6 +54,12 @@
                             <field name="uom_id"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Accounting">
+                            <field name="tax_ids">
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
