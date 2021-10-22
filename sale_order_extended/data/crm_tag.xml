@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+        <!--  crm categories -->
+        <record id="tag_from_lead" model="crm.tag">
+            <field name="name">From Lead</field>
+            <field name="color" eval="9"/>
+        </record>
+    </data>
+</odoo>

@@ -39,7 +39,7 @@ class ProductStockUpdate(models.TransientModel):
             {
                 'location_id': self.location_id.id,
                 'inventory_line_ids': inventory_lines,
-                'name': 'Inv Adj Of '
+                'name': 'Inv Adj Of'
             }
         )
         inventory_record.action_validate()
