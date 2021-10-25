@@ -6,9 +6,10 @@
     'description': """Sales Order Extended : This will store the information about the Sales Order Extended""",
     'depends': ['sale_crm'],
     'data': [
-        'data/product.xml',
-        'views/sale_order.xml',
-        'data/crm_tag.xml'
+        'data/product_data_extended.xml',
+        'data/crm_tag_extended.xml',
+        'views/sale_order_extended.xml',
+        'views/product_extended.xml'
     ],
     'demo': [],
     'installable': True,

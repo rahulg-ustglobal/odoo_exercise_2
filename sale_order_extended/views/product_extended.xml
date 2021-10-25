@@ -1,0 +1,14 @@
+<odoo>
+    <record id="view_product_extended_inheritance_form" model="ir.ui.view">
+        <field name="name">Product Inherited Form View</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="default_code" position="after">
+                <field name="deposit_product_id"/>
+                <field name="deposit_product_qty"/>
+            </field>
+        </field>
+    </record>
+</odoo>
+
