@@ -24,3 +24,8 @@ class SaleOrderExtended(models.Model):
                             })]
 
         return super(SaleOrderExtended, self).action_confirm()
+
+    def manage_deposits_btn(self):
+        # for deposit_product in self.order_line:
+        #     deposit_product.deposit
+        pass

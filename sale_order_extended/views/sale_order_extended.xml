@@ -7,6 +7,15 @@
             <field name="date_order" position="after">
                 <field name="lead_id"/>
             </field>
+
+            <xpath expr="//button[@id='action_confirm']" position="after">
+                <button id="manage_deposits_btn"
+                        name="manage_deposits_btn"
+                        string="Manage Deposits"
+                        type="object"
+                />
+            </xpath>
+
         </field>
     </record>
 </odoo>
