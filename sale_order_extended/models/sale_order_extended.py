@@ -1,5 +1,6 @@
 from odoo import fields, models, api
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
+
 
 
 class SaleOrderExtended(models.Model):
@@ -41,13 +42,20 @@ class SaleOrderExtended(models.Model):
 
         for order_line in self.order_line:
             if order_line.product_id.deposit_product_id:
-                deposit_product = order_line.product_id.deposit_product_id
-                sale_order_line_list = [(0, 0, {
-                    'product_id': deposit_product.id,
-                    'product_uom_qty': order_line.product_uom_qty * order_line.product_id.deposit_product_qty,
-                    'price_unit': deposit_product.lst_price,
-                    'product_uom': deposit_product.uom_id.id
-                })]
-                self.order_line = sale_order_line_list
+                if order_line.child_id:
+                    order_line.child_id.product_uom_qty = order_line.product_uom_qty * order_line.product_id.deposit_product_qty
+                else:
+                    deposit_product = order_line.product_id.deposit_product_id
+                    sale_order_line_list = [(0, 0, {
+                        'product_id': deposit_product.id,
+                        'product_uom_qty': order_line.product_uom_qty * order_line.product_id.deposit_product_qty,
+                        'price_unit': deposit_product.lst_price,
+                        'product_uom': deposit_product.uom_id.id,
+                        'parent_id': order_line.id,
+                    })]
+                    self.order_line = sale_order_line_list
 
-            # if order_line.product_id.deposit_product_qty == order_line.product_uom_qty:
+    def get_products_btn(self):
+        for order_line in self.order_line:
+            current_products = order_line.product_id
+            other_sale_order_lines = self.env['sale.order'].search(['current_product','!=',''])

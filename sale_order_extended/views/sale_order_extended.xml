@@ -9,11 +9,19 @@
             </field>
 
             <xpath expr="//button[@id='action_confirm']" position="after">
-                <button id="manage_deposits_btn"
-                        name="manage_deposits_btn"
-                        string="Manage Deposits"
+            <button id="manage_deposits_btn"
+                    name="manage_deposits_btn"
+                    string="Manage Deposits"
+                    type="object"
+            />
+            </xpath>
+            <xpath expr="//button[@id='manage_deposits_btn']" position="after">
+                <button id="get_products_btn"
+                        name="get_products_btn"
+                        string="Get Products"
                         type="object"
                 />
+
             </xpath>
 
         </field>
